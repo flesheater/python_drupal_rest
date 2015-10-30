@@ -73,7 +73,7 @@ class DrupalRest:
 		
 		response = cStringIO.StringIO()
 		
-		request_url = host + endpoint + 'node.json'
+		request_url = self.host + self.endpoint + 'node.json'
 		postData = urllib.urlencode(node)
 
 		c = pycurl.Curl()
@@ -82,9 +82,9 @@ class DrupalRest:
 		c.setopt(pycurl.HTTPHEADER, ['Accept: application/json'])
 		c.setopt(pycurl.HTTPHEADER, ['Content-type: application/x-www-form-urlencoded'])
 		
-		c.setopt(pycurl.COOKIE, session)
+		c.setopt(pycurl.COOKIE, self.session)
 		
-		csrf_token_header = 'X-CSRF-Token: ' + csrf_token
+		csrf_token_header = 'X-CSRF-Token: ' + self.csrf_token
 		c.setopt(pycurl.HTTPHEADER, [csrf_token_header])
 		c.setopt(pycurl.WRITEFUNCTION, response.write)
 
@@ -105,7 +105,7 @@ class DrupalRest:
 		
 		response = cStringIO.StringIO()
 		
-		file_request_url = host + endpoint + 'file.json'
+		file_request_url = self.host + self.endpoint + 'file.json'
 		postData = urllib.urlencode(file_data)
 
 		c = pycurl.Curl()
@@ -114,8 +114,8 @@ class DrupalRest:
 		c.setopt(pycurl.HTTPHEADER, ['Accept: application/json'])
 		c.setopt(pycurl.HTTPHEADER, ['Content-type: application/x-www-form-urlencoded'])
 		
-		c.setopt(pycurl.COOKIE, session)
-		csrf_token_header = 'X-CSRF-Token: ' + csrf_token
+		c.setopt(pycurl.COOKIE, self.session)
+		csrf_token_header = 'X-CSRF-Token: ' + self.csrf_token
 		c.setopt(pycurl.HTTPHEADER, [csrf_token_header])
 		c.setopt(pycurl.WRITEFUNCTION, response.write)
 		c.setopt(pycurl.POST, 1)
